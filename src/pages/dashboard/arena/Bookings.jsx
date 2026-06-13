@@ -13,9 +13,9 @@ const Bookings = () => {
   const [formData, setFormData] = useState({ name: '', package: 'Mega Party Pack', guests: '', date: '', status: 'Confirmed' });
   
   const [bookingsList, setBookingsList] = useState([
-    { id: 'B-1042', name: 'Arjun Birthday Party', package: 'Mega Party Pack', guests: 15, date: 'Today', time: '14:00 - 18:00', status: 'Confirmed' },
-    { id: 'B-1043', name: 'TechCorp Team Outing', package: 'Corporate Elite', guests: 45, date: 'Tomorrow', time: '10:00 - 16:00', status: 'Pending Deposit' },
-    { id: 'B-1044', name: 'Sharma Family', package: 'Family VR Combo', guests: 6, date: 'Oct 24', time: '11:00 - 14:00', status: 'Confirmed' },
+    { id: 'B-1042', name: 'Arjun Birthday Party', package: 'Mega Party Pack', guests: 15, date: '2026-06-13', time: '14:00 - 18:00', status: 'Confirmed' },
+    { id: 'B-1043', name: 'TechCorp Team Outing', package: 'Corporate Elite', guests: 45, date: '2026-06-14', time: '10:00 - 16:00', status: 'Pending Deposit' },
+    { id: 'B-1044', name: 'Sharma Family', package: 'Family VR Combo', guests: 6, date: '2026-10-24', time: '11:00 - 14:00', status: 'Confirmed' },
   ]);
 
   const filteredBookings = bookingsList.filter(b => {
@@ -29,7 +29,7 @@ const Bookings = () => {
   const handleSave = () => {
     if (modalMode === 'add') {
       const newId = `B-10${42 + bookingsList.length}`;
-      setBookingsList([{ id: newId, name: formData.name || 'New Booking', package: formData.package, guests: formData.guests || 1, date: formData.date || 'Today', time: '10:00 - 14:00', status: formData.status }, ...bookingsList]);
+      setBookingsList([{ id: newId, name: formData.name || 'New Booking', package: formData.package, guests: formData.guests || 1, date: formData.date || new Date().toISOString().split('T')[0], time: '10:00 - 14:00', status: formData.status }, ...bookingsList]);
     } else if (modalMode === 'edit') {
       setBookingsList(bookingsList.map(b => b.id === editingId ? { ...b, name: formData.name, package: formData.package, guests: formData.guests, date: formData.date, status: formData.status } : b));
     }
@@ -175,7 +175,7 @@ const Bookings = () => {
                <div className="grid grid-cols-2 gap-4">
                  <div className="space-y-2">
                    <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Date</label>
-                   <input disabled={modalMode === 'view'} value={formData.date} onChange={e => setFormData({...formData, date: e.target.value})} type="text" className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-arena-primary text-sm font-medium text-slate-700 disabled:opacity-50" placeholder="e.g. Today or Oct 24" />
+                   <input disabled={modalMode === 'view'} value={formData.date} onChange={e => setFormData({...formData, date: e.target.value})} type="date" className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-arena-primary text-sm font-medium text-slate-700 disabled:opacity-50" />
                  </div>
                  <div className="space-y-2">
                    <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Guest Count</label>
